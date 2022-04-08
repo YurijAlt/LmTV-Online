@@ -17,6 +17,7 @@
 		C4D0CA2427FF7910007FD504 /* ViewTVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0CA2327FF7910007FD504 /* ViewTVViewController.swift */; };
 		C4D0CA2627FF7928007FD504 /* ViewTVViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0CA2527FF7928007FD504 /* ViewTVViewPresenter.swift */; };
 		C4D0CA2827FF7951007FD504 /* MainViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0CA2727FF7951007FD504 /* MainViewTableViewCell.swift */; };
+		C4F3AA4E2800C223005F6F09 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F3AA4D2800C223005F6F09 /* Channel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C4D0CA2327FF7910007FD504 /* ViewTVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTVViewController.swift; sourceTree = "<group>"; };
 		C4D0CA2527FF7928007FD504 /* ViewTVViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTVViewPresenter.swift; sourceTree = "<group>"; };
 		C4D0CA2727FF7951007FD504 /* MainViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTableViewCell.swift; sourceTree = "<group>"; };
+		C4F3AA4D2800C223005F6F09 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,19 +66,76 @@
 		C4D0CA0427FF710C007FD504 /* LmTV-Online */ = {
 			isa = PBXGroup;
 			children = (
-				C4D0CA0527FF710C007FD504 /* AppDelegate.swift */,
-				C4D0CA0927FF710C007FD504 /* MainViewController.swift */,
-				C4D0CA1D27FF78AF007FD504 /* MainViewPresenter.swift */,
-				C4D0CA1F27FF78C0007FD504 /* StorageManager.swift */,
-				C4D0CA2127FF78CD007FD504 /* NetworkManager.swift */,
-				C4D0CA2327FF7910007FD504 /* ViewTVViewController.swift */,
-				C4D0CA2527FF7928007FD504 /* ViewTVViewPresenter.swift */,
-				C4D0CA2727FF7951007FD504 /* MainViewTableViewCell.swift */,
-				C4D0CA0E27FF7113007FD504 /* Assets.xcassets */,
-				C4D0CA1027FF7113007FD504 /* LaunchScreen.storyboard */,
+				C4F3AA532800C822005F6F09 /* SupportingFiles */,
+				C4F3AA522800C816005F6F09 /* MainViewController */,
+				C4F3AA512800C7F7005F6F09 /* Sevices */,
+				C4F3AA4F2800C7DD005F6F09 /* ViewTVController */,
+				C4F3AA502800C7E9005F6F09 /* Model */,
+				C4F3AA552800C842005F6F09 /* Source */,
+				C4F3AA542800C837005F6F09 /* Storyboards */,
 				C4D0CA1327FF7113007FD504 /* Info.plist */,
 			);
 			path = "LmTV-Online";
+			sourceTree = "<group>";
+		};
+		C4F3AA4F2800C7DD005F6F09 /* ViewTVController */ = {
+			isa = PBXGroup;
+			children = (
+				C4D0CA2327FF7910007FD504 /* ViewTVViewController.swift */,
+				C4D0CA2527FF7928007FD504 /* ViewTVViewPresenter.swift */,
+			);
+			path = ViewTVController;
+			sourceTree = "<group>";
+		};
+		C4F3AA502800C7E9005F6F09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C4F3AA4D2800C223005F6F09 /* Channel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C4F3AA512800C7F7005F6F09 /* Sevices */ = {
+			isa = PBXGroup;
+			children = (
+				C4D0CA1F27FF78C0007FD504 /* StorageManager.swift */,
+				C4D0CA2127FF78CD007FD504 /* NetworkManager.swift */,
+			);
+			path = Sevices;
+			sourceTree = "<group>";
+		};
+		C4F3AA522800C816005F6F09 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C4D0CA0927FF710C007FD504 /* MainViewController.swift */,
+				C4D0CA1D27FF78AF007FD504 /* MainViewPresenter.swift */,
+				C4D0CA2727FF7951007FD504 /* MainViewTableViewCell.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		C4F3AA532800C822005F6F09 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C4D0CA0527FF710C007FD504 /* AppDelegate.swift */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		C4F3AA542800C837005F6F09 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C4D0CA1027FF7113007FD504 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		C4F3AA552800C842005F6F09 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C4D0CA0E27FF7113007FD504 /* Assets.xcassets */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +215,7 @@
 				C4D0CA2227FF78CD007FD504 /* NetworkManager.swift in Sources */,
 				C4D0CA2427FF7910007FD504 /* ViewTVViewController.swift in Sources */,
 				C4D0CA1E27FF78AF007FD504 /* MainViewPresenter.swift in Sources */,
+				C4F3AA4E2800C223005F6F09 /* Channel.swift in Sources */,
 				C4D0CA2027FF78C0007FD504 /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

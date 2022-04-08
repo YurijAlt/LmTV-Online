@@ -7,6 +7,10 @@
 
 import UIKit
 
+//MARK: MainViewProtocol
+protocol MainViewProtocol: AnyObject {
+    
+}
 class MainViewController: UIViewController {
     
     //MARK: Views
@@ -50,9 +54,9 @@ class MainViewController: UIViewController {
     private lazy var mainSegmentedControl: UISegmentedControl = {
         let items = ["", ""]
         let segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.backgroundColor = .clear
+        segmentedControl.backgroundColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
         segmentedControl.selectedSegmentTintColor = #colorLiteral(red: 0, green: 0.475726068, blue: 1, alpha: 1)
-        segmentedControl.selectedSegmentIndex = 1
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.setWidth(allChannelsButton.frame.width + 24, forSegmentAt: 0)
         segmentedControl.setWidth(favoriteChannelsButton.frame.width + 24, forSegmentAt: 1)
         return segmentedControl
@@ -82,6 +86,8 @@ class MainViewController: UIViewController {
     
     //MARK: - Private Properties
     private var isFirstSegmentSelected = true
+    
+    private var presenter: MainViewPresenterProtocol!
 
     //MARK: - Life Circle Methods
     override func viewDidLoad() {
@@ -103,7 +109,13 @@ class MainViewController: UIViewController {
 
         mainTableView.dataSource = self
         mainTableView.delegate = self
+        
+        let networkManager = NetworkManager()
+        presenter = MainViewPresenter(view: self, networkManager: networkManager)
+        updateUI()
     }
+    
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -113,6 +125,14 @@ class MainViewController: UIViewController {
     
 
     //MARK: - Private Methods
+    
+    private func updateUI() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.mainTableView.reloadData()
+        }
+    }
+    
+    
     private func setupConstraints() {
         //SearchView
         searchView.translatesAutoresizingMaskIntoConstraints = false
@@ -185,11 +205,11 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+        presenter.channels?.channels?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MainViewTableViewCell.cellIdentifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainViewTableViewCell.cellIdentifier, for: indexPath) as? MainViewTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = #colorLiteral(red: 0.2039211392, green: 0.2039219141, blue: 0.2210820913, alpha: 1)
         cell.layer.borderColor = #colorLiteral(red: 0.1363289952, green: 0.1411529481, blue: 0.1541091204, alpha: 1)
         cell.layer.borderWidth = 4
@@ -199,6 +219,9 @@ extension MainViewController: UITableViewDataSource {
         backgroundView.layer.cornerRadius = 10
         backgroundView.layer.masksToBounds = true
         cell.selectedBackgroundView = backgroundView
+        //cell.configure(with: presenter.imageData)
+        cell.configure(with: presenter.channels?.channels?[indexPath.row].name ?? "", channelTitle: presenter.channels?.channels?[indexPath.row
+                                                                                                                                ].current?.title ?? "")
         return cell
     }
 }
@@ -216,5 +239,9 @@ extension MainViewController: UITableViewDelegate {
  
     
 
+    
+}
+
+extension MainViewController: MainViewProtocol {
     
 }
