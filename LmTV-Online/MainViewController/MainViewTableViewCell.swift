@@ -134,14 +134,15 @@ class MainViewTableViewCell: UITableViewCell {
         channelNameLabel.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
                     channelNameLabel.bottomAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -4),
-                    channelNameLabel.leftAnchor.constraint(equalTo: channelLogoImageView.rightAnchor, constant: 16)
+                    channelNameLabel.leftAnchor.constraint(equalTo: channelLogoImageView.rightAnchor, constant: 16),
+                    channelNameLabel.rightAnchor.constraint(equalTo: starButton.leftAnchor, constant: -8)
                 ])
         
         broadcastNameLabel.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
                     broadcastNameLabel.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 4),
                     broadcastNameLabel.leftAnchor.constraint(equalTo: channelNameLabel.leftAnchor),
-                    broadcastNameLabel.rightAnchor.constraint(equalTo: starButton.leftAnchor, constant: -16)
+                    broadcastNameLabel.rightAnchor.constraint(equalTo: starButton.leftAnchor, constant: -8)
                 ])
         
         starButton.translatesAutoresizingMaskIntoConstraints = false

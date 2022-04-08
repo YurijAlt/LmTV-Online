@@ -32,6 +32,10 @@ class MainViewController: UIViewController {
         button.setTitle("Все", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         //button.backgroundColor = .blue
+        
+        //button.setTitleColor(UIColor.red, for: UIControl.State.normal)
+        
+        button.addTarget(self, action: #selector(allChannelsButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -39,8 +43,9 @@ class MainViewController: UIViewController {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         button.setTitle("Избранное", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
         //button.backgroundColor = .orange
+        button.addTarget(self, action: #selector(favoriteChannelsButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -131,6 +136,22 @@ class MainViewController: UIViewController {
             self.mainTableView.reloadData()
         }
     }
+    
+    @objc private func allChannelsButtonTapped() {
+        allChannelsButton.setTitleColor(UIColor.white, for: .normal)
+        favoriteChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
+        mainSegmentedControl.selectedSegmentIndex = 0
+        mainTableView.reloadData()
+    }
+    
+    @objc private func favoriteChannelsButtonTapped() {
+        allChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
+        favoriteChannelsButton.setTitleColor(UIColor.white, for: .normal)
+        mainSegmentedControl.selectedSegmentIndex = 1
+        mainTableView.reloadData()
+    }
+    
+
     
     
     private func setupConstraints() {
