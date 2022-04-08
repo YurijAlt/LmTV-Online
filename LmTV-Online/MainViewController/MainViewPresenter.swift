@@ -16,7 +16,6 @@ protocol MainViewPresenterProtocol {
 }
 
 class MainViewPresenter: MainViewPresenterProtocol {
-
     unowned let view: MainViewProtocol
     let networkManager: NetworkManagerProtocol!
     var channels: Channel?
@@ -25,18 +24,13 @@ class MainViewPresenter: MainViewPresenterProtocol {
     required init(view: MainViewProtocol, networkManager: NetworkManagerProtocol) {
         self.view = view
         self.networkManager = networkManager
-        fetchChannels()
-        print(self.channels?.channels?[1].name)
-    
     }
     
     func fetchChannels() {
-        networkManager.fetchListOfChannels { channels in
+        networkManager.fetchListOfChannels { [weak self] channels in
+            guard let self = self else { return }
             self.channels = channels
+            self.view.reloadData()
         }
     }
-    
-
-    
-    
 }

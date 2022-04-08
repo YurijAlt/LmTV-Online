@@ -8,24 +8,23 @@
 import UIKit
 
 class MainViewTableViewCell: UITableViewCell {
-
-    static let cellIdentifier = "MainViewTableViewCell"
-    var imageData: Data?
     
+    static let cellIdentifier = "MainViewTableViewCell"
+    
+    //MARK: - Private Properties
     private var starButtonIsActive = false
     
+    //MARK: - Views
     private lazy var channelLogoImageView: UIImageView = {
-            let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
         imageView.layer.cornerRadius = 8
-        //imageView.image = UIImage(named: "channelLogo")
-            return imageView
-        }()
+        return imageView
+    }()
     
     private lazy var channelNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "ТВ3"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         return label
@@ -33,54 +32,24 @@ class MainViewTableViewCell: UITableViewCell {
     
     private lazy var broadcastNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Сверхъестественное"
         label.textColor = #colorLiteral(red: 0.9128243327, green: 0.9175701737, blue: 0.9349194765, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         return label
     }()
     
-    
     private lazy var starButton: UIButton = {
         let button = UIButton(type: .system)
-        //button.setTitle("      ╋ Добавить ребёнка      ", for: .normal)
         button.setImage(UIImage(named: "star"), for: .normal)
-        //button.setTitleColor(#colorLiteral(red: 0, green: 0.6215080619, blue: 0.9352857471, alpha: 1), for: .normal)
         button.backgroundColor = .clear
-        //button.layer.cornerRadius = 5
-        //button.layer.borderWidth = 4
-        //button.layer.borderColor = #colorLiteral(red: 0, green: 0.6215080619, blue: 0.9352857471, alpha: 1)
-        //button.layer.masksToBounds = true
-        //button.layer.cornerRadius = button.frame.width / 2
-        
         button.tintColor = getStarButtonTintColor()
-        
-        
         button.addTarget(self, action: #selector(starButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    
-//    private lazy var starImageView: UIImageView = {
-//            let imageView = UIImageView()
-//        imageView.image = UIImage(named: "star")
-//            return imageView
-//        }()
-    
-    
-
+    //MARK: - Life Circle Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        //contentView.layer.cornerRadius = 10
-        //contentView.layer.masksToBounds = true
-        //contentView.backgroundColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
-        
-        
-        
-        
-        contentView.addSubview(channelLogoImageView)
-        contentView.addSubview(channelNameLabel)
-        contentView.addSubview(broadcastNameLabel)
-        contentView.addSubview(starButton)
+        setupSubviews(subviews: channelLogoImageView, channelNameLabel, broadcastNameLabel, starButton)
         setupConstraints()
     }
     
@@ -88,23 +57,19 @@ class MainViewTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-
-    
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        contentView.backgroundColor = .orange
-//    }
-    
-    
-
+    //MARK: - Public Methods
     func configure(with channelName: String, channelTitle: String) {
         channelNameLabel.text = channelName
         broadcastNameLabel.text = channelTitle
-        
     }
     
+    //MARK: - Private Methods
     
-    
+    private func setupSubviews(subviews: UIView...) {
+        subviews.forEach { subview in
+            contentView.addSubview(subview)
+        }
+    }
     
     @objc private func starButtonTapped() {
         starButtonIsActive.toggle()
@@ -115,51 +80,38 @@ class MainViewTableViewCell: UITableViewCell {
         starButtonIsActive ? #colorLiteral(red: 0, green: 0.4610033035, blue: 1, alpha: 1) : #colorLiteral(red: 0.4501188397, green: 0.4546305537, blue: 0.48499614, alpha: 1)
     }
     
-    
-    
     private func setupConstraints() {
-        
-        
-        
+        //ChannelLogoImageView
         channelLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    channelLogoImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 12),
-                    channelLogoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-                    channelLogoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-                    channelLogoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-                    channelLogoImageView.heightAnchor.constraint(equalToConstant: 56),
-                    channelLogoImageView.widthAnchor.constraint(equalToConstant: 56)
-                ])
-        
+        NSLayoutConstraint.activate([
+            channelLogoImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 12),
+            channelLogoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            channelLogoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            channelLogoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            channelLogoImageView.heightAnchor.constraint(equalToConstant: 56),
+            channelLogoImageView.widthAnchor.constraint(equalToConstant: 56)
+        ])
+        //ChannelNameLabel
         channelNameLabel.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    channelNameLabel.bottomAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -4),
-                    channelNameLabel.leftAnchor.constraint(equalTo: channelLogoImageView.rightAnchor, constant: 16),
-                    channelNameLabel.rightAnchor.constraint(equalTo: starButton.leftAnchor, constant: -8)
-                ])
-        
+        NSLayoutConstraint.activate([
+            channelNameLabel.bottomAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -4),
+            channelNameLabel.leftAnchor.constraint(equalTo: channelLogoImageView.rightAnchor, constant: 16),
+            channelNameLabel.rightAnchor.constraint(equalTo: starButton.leftAnchor, constant: -8)
+        ])
+        //BroadcastNameLabel
         broadcastNameLabel.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    broadcastNameLabel.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 4),
-                    broadcastNameLabel.leftAnchor.constraint(equalTo: channelNameLabel.leftAnchor),
-                    broadcastNameLabel.rightAnchor.constraint(equalTo: starButton.leftAnchor, constant: -8)
-                ])
-        
+        NSLayoutConstraint.activate([
+            broadcastNameLabel.topAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 4),
+            broadcastNameLabel.leftAnchor.constraint(equalTo: channelNameLabel.leftAnchor),
+            broadcastNameLabel.rightAnchor.constraint(equalTo: starButton.leftAnchor, constant: -8)
+        ])
+        //StarButton
         starButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        
             starButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             starButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -26),
-            //starButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -26),
             starButton.widthAnchor.constraint(equalToConstant: 24),
             starButton.heightAnchor.constraint(equalToConstant: 24)
         ])
-        
     }
-    
-    
-    
-    
-    
-
 }

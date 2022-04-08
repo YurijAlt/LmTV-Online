@@ -9,7 +9,7 @@ import UIKit
 
 //MARK: MainViewProtocol
 protocol MainViewProtocol: AnyObject {
-    
+    func reloadData()
 }
 class MainViewController: UIViewController {
     
@@ -117,26 +117,16 @@ class MainViewController: UIViewController {
         
         let networkManager = NetworkManager()
         presenter = MainViewPresenter(view: self, networkManager: networkManager)
-        updateUI()
+        presenter.fetchChannels()
     }
-    
-    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         mainSegmentedControl.setWidth(58, forSegmentAt: 0)
         mainSegmentedControl.setWidth(116, forSegmentAt: 1)
     }
-    
 
     //MARK: - Private Methods
-    
-    private func updateUI() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.mainTableView.reloadData()
-        }
-    }
-    
     @objc private func allChannelsButtonTapped() {
         allChannelsButton.setTitleColor(UIColor.white, for: .normal)
         favoriteChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
@@ -150,9 +140,6 @@ class MainViewController: UIViewController {
         mainSegmentedControl.selectedSegmentIndex = 1
         mainTableView.reloadData()
     }
-    
-
-    
     
     private func setupConstraints() {
         //SearchView
@@ -222,9 +209,8 @@ class MainViewController: UIViewController {
     }
 }
 
-
+//MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.channels?.channels?.count ?? 0
     }
@@ -240,29 +226,24 @@ extension MainViewController: UITableViewDataSource {
         backgroundView.layer.cornerRadius = 10
         backgroundView.layer.masksToBounds = true
         cell.selectedBackgroundView = backgroundView
-        //cell.configure(with: presenter.imageData)
-        cell.configure(with: presenter.channels?.channels?[indexPath.row].name ?? "", channelTitle: presenter.channels?.channels?[indexPath.row
-                                                                                                                                ].current?.title ?? "")
+        cell.configure(
+            with: presenter.channels?.channels?[indexPath.row].name ?? "",
+            channelTitle: presenter.channels?.channels?[indexPath.row].current?.title ?? ""
+        )
         return cell
     }
 }
 
-
+//MARK: - UITableVeiwDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-
-    
-    
- 
-    
-
-    
 }
 
+//MARK: - MainViewProtocol
 extension MainViewController: MainViewProtocol {
-    
+    func reloadData() {
+        mainTableView.reloadData()
+    }
 }
