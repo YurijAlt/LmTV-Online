@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
     private var isFirstSegmentSelected = true
     
     private var presenter: MainViewPresenterProtocol!
-
+    
     //MARK: - Life Circle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,12 +106,12 @@ class MainViewController: UIViewController {
         buttonView.addSubview(allChannelsButton)
         buttonView.addSubview(favoriteChannelsButton)
         buttonView.addSubview(mainSegmentedControl)
-
+        
         view.addSubview(pixelLineView)
         view.addSubview(mainTableView)
         
         setupConstraints()
-
+        
         mainTableView.dataSource = self
         mainTableView.delegate = self
         
@@ -125,7 +125,7 @@ class MainViewController: UIViewController {
         mainSegmentedControl.setWidth(58, forSegmentAt: 0)
         mainSegmentedControl.setWidth(116, forSegmentAt: 1)
     }
-
+    
     //MARK: - Private Methods
     @objc private func allChannelsButtonTapped() {
         allChannelsButton.setTitleColor(UIColor.white, for: .normal)
@@ -214,7 +214,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.channels?.channels?.count ?? 0
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainViewTableViewCell.cellIdentifier, for: indexPath) as? MainViewTableViewCell else { return UITableViewCell() }
         cell.backgroundColor = #colorLiteral(red: 0.2039211392, green: 0.2039219141, blue: 0.2210820913, alpha: 1)

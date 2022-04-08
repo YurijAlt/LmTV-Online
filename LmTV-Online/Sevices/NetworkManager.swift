@@ -23,13 +23,10 @@ class NetworkManager: NetworkManagerProtocol {
                 print("Error recieved requesting text data: \(error.localizedDescription)")
                 completion(nil)
             }
-            print("Дата получена, начинаем парсить")
             let decode = self.decodeJSON(type: Channel.self, from: data)
-                completion(decode)
-                
+            completion(decode)
         }
     }
-    
     
     func fetchImage(from url: String, completion: @escaping (Data?) -> Void) {
         performRequest(withURLString: url) { data, error in
@@ -40,8 +37,6 @@ class NetworkManager: NetworkManagerProtocol {
             completion(data)
         }
     }
-    
-    
     
     private func performRequest(withURLString urlString: String, completion: @escaping (Data?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
@@ -72,20 +67,4 @@ class NetworkManager: NetworkManagerProtocol {
             return nil
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

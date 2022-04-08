@@ -7,12 +7,11 @@
 
 import Foundation
 
-    //MARK: MainViewPresenterProtocol
+//MARK: MainViewPresenterProtocol
 protocol MainViewPresenterProtocol {
     init(view: MainViewProtocol, networkManager: NetworkManagerProtocol)
     func fetchChannels()
     var channels: Channel? { get set }
-
 }
 
 class MainViewPresenter: MainViewPresenterProtocol {
