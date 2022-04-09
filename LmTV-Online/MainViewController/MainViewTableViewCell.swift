@@ -69,7 +69,8 @@ class MainViewTableViewCell: UITableViewCell {
         channelNameLabel.text = channelName
         broadcastNameLabel.text = channelTitle
         
-        ImageManager.shared.fetchImage(from: image) { data in
+        ImageManager.shared.fetchImage(from: image) { [weak self] data in
+            guard let self = self else { return }
             self.channelLogoImageView.image = UIImage(data: data)
             self.activityIndicator.stopAnimating()
         }

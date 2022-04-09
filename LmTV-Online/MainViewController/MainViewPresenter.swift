@@ -41,7 +41,8 @@ class MainViewPresenter: MainViewPresenterProtocol {
     }
     
     func fetchImage(from url: String) {
-        networkManager.fetchImage(from: url) { imageData in
+        networkManager.fetchImage(from: url) { [weak self] imageData in
+            guard let self = self else { return }
             self.imageData = imageData
         }
     }
