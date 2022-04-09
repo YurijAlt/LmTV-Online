@@ -28,11 +28,12 @@ class MainViewPresenter: MainViewPresenterProtocol {
     required init(view: MainViewProtocol, networkManager: NetworkManagerProtocol) {
         self.view = view
         self.networkManager = networkManager
+        fetchChannels()
     }
     
     func fetchChannels() {
-        networkManager.fetchListOfChannels { channels in
-            //guard let self = self else { return }
+        networkManager.fetchListOfChannels { [weak self] channels in
+            guard let self = self else { return }
             self.channels = channels
 
             self.view.reloadData()

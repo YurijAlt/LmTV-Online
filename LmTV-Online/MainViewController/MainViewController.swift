@@ -110,7 +110,7 @@ class MainViewController: UIViewController {
         
         let networkManager = NetworkManager()
         presenter = MainViewPresenter(view: self, networkManager: networkManager)
-        presenter.fetchChannels()
+        //presenter.fetchChannels()
         //mainTableView.reloadData()
     }
     

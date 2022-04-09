@@ -71,6 +71,7 @@ class MainViewTableViewCell: UITableViewCell {
         
         ImageManager.shared.fetchImage(from: image) { data in
             self.channelLogoImageView.image = UIImage(data: data)
+            self.activityIndicator.stopAnimating()
         }
 
                    //self.channelLogoImageView = UIImage(data: data)
