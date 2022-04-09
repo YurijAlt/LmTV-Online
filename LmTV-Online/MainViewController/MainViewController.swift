@@ -110,8 +110,6 @@ class MainViewController: UIViewController {
         
         let networkManager = NetworkManager()
         presenter = MainViewPresenter(view: self, networkManager: networkManager)
-        //presenter.fetchChannels()
-        //mainTableView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -131,8 +129,6 @@ class MainViewController: UIViewController {
         }
     }
     
-    
-    
     @objc private func allChannelsButtonTapped() {
         allChannelsButton.setTitleColor(UIColor.white, for: .normal)
         favoriteChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
@@ -147,6 +143,10 @@ class MainViewController: UIViewController {
         mainSegmentedControl.selectedSegmentIndex = 1
         mainTableView.reloadData()
     }
+    
+
+    
+    
     
     private func setupConstraints() {
         //SearchView
@@ -223,6 +223,26 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        var isFavorite: Bool = false
+        let networkObject = presenter.channels?.channels?[indexPath.row].name
+        let dataObject = StorageManager.shared.realm.objects(FavoriteChannel.self).filter("name = %@", networkObject ?? "")
+        if dataObject.isEmpty {
+            isFavorite = false
+        } else {
+            isFavorite = true
+            
+        }
+        
+            print("НАЙДЕНО\(isFavorite)")
+    
+        
+        
+        
+        
+        
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainViewTableViewCell.cellIdentifier, for: indexPath) as? MainViewTableViewCell else { return UITableViewCell() }
         
         cell.backgroundColor = #colorLiteral(red: 0.2039211392, green: 0.2039219141, blue: 0.2210820913, alpha: 1)
@@ -238,7 +258,8 @@ extension MainViewController: UITableViewDataSource {
         cell.configure(
             with: presenter.channels?.channels?[indexPath.row].name ?? "",
             channelTitle: presenter.channels?.channels?[indexPath.row].current?.title ?? "",
-            image: presenter.channels?.channels?[indexPath.row].image ?? ""
+            image: presenter.channels?.channels?[indexPath.row].image ?? "",
+            isStarButtonActive: isFavorite
         )
         return cell
     }

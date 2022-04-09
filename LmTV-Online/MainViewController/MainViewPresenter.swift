@@ -14,7 +14,6 @@ protocol MainViewPresenterProtocol {
     func fetchImage(from url: String)
     var imageData: Data? { get set }
     var channels: Channel? { get set }
-
 }
 
 class MainViewPresenter: MainViewPresenterProtocol {
@@ -23,8 +22,6 @@ class MainViewPresenter: MainViewPresenterProtocol {
     var imageData: Data?
     var channels: Channel?
 
-
-    
     required init(view: MainViewProtocol, networkManager: NetworkManagerProtocol) {
         self.view = view
         self.networkManager = networkManager
@@ -35,7 +32,6 @@ class MainViewPresenter: MainViewPresenterProtocol {
         networkManager.fetchListOfChannels { [weak self] channels in
             guard let self = self else { return }
             self.channels = channels
-
             self.view.reloadData()
         }
     }
@@ -46,5 +42,4 @@ class MainViewPresenter: MainViewPresenterProtocol {
             self.imageData = imageData
         }
     }
-    
 }

@@ -19,6 +19,9 @@
 		C4D0CA2827FF7951007FD504 /* MainViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0CA2727FF7951007FD504 /* MainViewTableViewCell.swift */; };
 		C4F3AA4E2800C223005F6F09 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F3AA4D2800C223005F6F09 /* Channel.swift */; };
 		C4F7F03C2801DDBA00EBC077 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F7F03B2801DDBA00EBC077 /* ImageManager.swift */; };
+		C4F7F03F2801F56A00EBC077 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = C4F7F03E2801F56A00EBC077 /* Realm */; };
+		C4F7F0412801F56A00EBC077 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C4F7F0402801F56A00EBC077 /* RealmSwift */; };
+		C4F7F04328020E9200EBC077 /* FavoriteChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F7F04228020E9200EBC077 /* FavoriteChannel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,7 @@
 		C4D0CA2727FF7951007FD504 /* MainViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTableViewCell.swift; sourceTree = "<group>"; };
 		C4F3AA4D2800C223005F6F09 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		C4F7F03B2801DDBA00EBC077 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		C4F7F04228020E9200EBC077 /* FavoriteChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteChannel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4F7F0412801F56A00EBC077 /* RealmSwift in Frameworks */,
+				C4F7F03F2801F56A00EBC077 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				C4F3AA4D2800C223005F6F09 /* Channel.swift */,
+				C4F7F04228020E9200EBC077 /* FavoriteChannel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -157,6 +164,10 @@
 			dependencies = (
 			);
 			name = "LmTV-Online";
+			packageProductDependencies = (
+				C4F7F03E2801F56A00EBC077 /* Realm */,
+				C4F7F0402801F56A00EBC077 /* RealmSwift */,
+			);
 			productName = "LmTV-Online";
 			productReference = C4D0CA0227FF710C007FD504 /* LmTV-Online.app */;
 			productType = "com.apple.product-type.application";
@@ -185,6 +196,9 @@
 				Base,
 			);
 			mainGroup = C4D0C9F927FF710C007FD504;
+			packageReferences = (
+				C4F7F03D2801F56A00EBC077 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = C4D0CA0327FF710C007FD504 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -213,6 +227,7 @@
 			files = (
 				C4D0CA0A27FF710C007FD504 /* MainViewController.swift in Sources */,
 				C4F7F03C2801DDBA00EBC077 /* ImageManager.swift in Sources */,
+				C4F7F04328020E9200EBC077 /* FavoriteChannel.swift in Sources */,
 				C4D0CA2827FF7951007FD504 /* MainViewTableViewCell.swift in Sources */,
 				C4D0CA2627FF7928007FD504 /* ViewTVViewPresenter.swift in Sources */,
 				C4D0CA0627FF710C007FD504 /* AppDelegate.swift in Sources */,
@@ -430,6 +445,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C4F7F03D2801F56A00EBC077 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C4F7F03E2801F56A00EBC077 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C4F7F03D2801F56A00EBC077 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		C4F7F0402801F56A00EBC077 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C4F7F03D2801F56A00EBC077 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C4D0C9FA27FF710C007FD504 /* Project object */;
 }
