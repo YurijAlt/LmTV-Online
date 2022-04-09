@@ -11,14 +11,19 @@ import Foundation
 protocol MainViewPresenterProtocol {
     init(view: MainViewProtocol, networkManager: NetworkManagerProtocol)
     func fetchChannels()
+    func fetchImage(from url: String)
+    var imageData: Data? { get set }
     var channels: Channel? { get set }
+
 }
 
 class MainViewPresenter: MainViewPresenterProtocol {
     unowned let view: MainViewProtocol
     let networkManager: NetworkManagerProtocol!
-    var channels: Channel?
     var imageData: Data?
+    var channels: Channel?
+
+
     
     required init(view: MainViewProtocol, networkManager: NetworkManagerProtocol) {
         self.view = view
@@ -26,10 +31,18 @@ class MainViewPresenter: MainViewPresenterProtocol {
     }
     
     func fetchChannels() {
-        networkManager.fetchListOfChannels { [weak self] channels in
-            guard let self = self else { return }
+        networkManager.fetchListOfChannels { channels in
+            //guard let self = self else { return }
             self.channels = channels
+
             self.view.reloadData()
         }
     }
+    
+    func fetchImage(from url: String) {
+        networkManager.fetchImage(from: url) { imageData in
+            self.imageData = imageData
+        }
+    }
+    
 }

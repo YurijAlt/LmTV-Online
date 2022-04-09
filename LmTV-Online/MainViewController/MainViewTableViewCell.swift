@@ -17,9 +17,9 @@ class MainViewTableViewCell: UITableViewCell {
     //MARK: - Views
     private lazy var channelLogoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = #colorLiteral(red: 0.9686275125, green: 0.9686275125, blue: 0.9686275125, alpha: 1)
+        imageView.backgroundColor = .white
         imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -46,10 +46,17 @@ class MainViewTableViewCell: UITableViewCell {
         return button
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+    
     //MARK: - Life Circle Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupSubviews(subviews: channelLogoImageView, channelNameLabel, broadcastNameLabel, starButton)
+        setupSubviews(subviews: channelLogoImageView, channelNameLabel, broadcastNameLabel, starButton, activityIndicator)
         setupConstraints()
     }
     
@@ -58,13 +65,18 @@ class MainViewTableViewCell: UITableViewCell {
     }
     
     //MARK: - Public Methods
-    func configure(with channelName: String, channelTitle: String) {
+    func configure(with channelName: String, channelTitle: String, image: String) {
         channelNameLabel.text = channelName
         broadcastNameLabel.text = channelTitle
+        
+        ImageManager.shared.fetchImage(from: image) { data in
+            self.channelLogoImageView.image = UIImage(data: data)
+        }
+
+                   //self.channelLogoImageView = UIImage(data: data)
     }
     
     //MARK: - Private Methods
-    
     private func setupSubviews(subviews: UIView...) {
         subviews.forEach { subview in
             contentView.addSubview(subview)
@@ -90,6 +102,12 @@ class MainViewTableViewCell: UITableViewCell {
             channelLogoImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             channelLogoImageView.heightAnchor.constraint(equalToConstant: 56),
             channelLogoImageView.widthAnchor.constraint(equalToConstant: 56)
+        ])
+        //ActivityIndicator
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: channelLogoImageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: channelLogoImageView.centerYAnchor)
         ])
         //ChannelNameLabel
         channelNameLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 //MARK: NetworkManagerProtocol
 protocol NetworkManagerProtocol {
@@ -28,6 +29,8 @@ class NetworkManager: NetworkManagerProtocol {
         }
     }
     
+    
+    
     func fetchImage(from url: String, completion: @escaping (Data?) -> Void) {
         performRequest(withURLString: url) { data, error in
             if let error = error {
@@ -37,6 +40,15 @@ class NetworkManager: NetworkManagerProtocol {
             completion(data)
         }
     }
+    
+    
+    
+    
+    
+    //    func getImage(from data: Data) -> UIImage {
+    //        guard let image = UIImage(data: data) else { return UIImage(systemName: "xmark.icloud") }
+    //        return image
+    //    }
     
     private func performRequest(withURLString urlString: String, completion: @escaping (Data?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }

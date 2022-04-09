@@ -111,7 +111,7 @@ class MainViewController: UIViewController {
         let networkManager = NetworkManager()
         presenter = MainViewPresenter(view: self, networkManager: networkManager)
         presenter.fetchChannels()
-        
+        //mainTableView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -138,7 +138,7 @@ class MainViewController: UIViewController {
         favoriteChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
         mainSegmentedControl.selectedSegmentIndex = 0
         mainTableView.reloadData()
-
+        
     }
     
     @objc private func favoriteChannelsButtonTapped() {
@@ -225,10 +225,6 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainViewTableViewCell.cellIdentifier, for: indexPath) as? MainViewTableViewCell else { return UITableViewCell() }
         
-       
-        
-        
-        
         cell.backgroundColor = #colorLiteral(red: 0.2039211392, green: 0.2039219141, blue: 0.2210820913, alpha: 1)
         cell.layer.borderColor = #colorLiteral(red: 0.1363289952, green: 0.1411529481, blue: 0.1541091204, alpha: 1)
         cell.layer.borderWidth = 4
@@ -238,9 +234,11 @@ extension MainViewController: UITableViewDataSource {
         backgroundView.layer.cornerRadius = 10
         backgroundView.layer.masksToBounds = true
         cell.selectedBackgroundView = backgroundView
+        
         cell.configure(
             with: presenter.channels?.channels?[indexPath.row].name ?? "",
-            channelTitle: presenter.channels?.channels?[indexPath.row].current?.title ?? ""
+            channelTitle: presenter.channels?.channels?[indexPath.row].current?.title ?? "",
+            image: presenter.channels?.channels?[indexPath.row].image ?? ""
         )
         return cell
     }
@@ -250,7 +248,6 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        //createPlayer(videoStringURL: presenter.channels?.channels?[indexPath.row].url ?? urlString)
         createPlayer(videoStringURL: urlString)
     }
 }
