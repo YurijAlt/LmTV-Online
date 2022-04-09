@@ -19,7 +19,6 @@ class MainViewController: UIViewController {
         view.backgroundColor = .red
         return view
     }()
-    
     private lazy var buttonView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
@@ -31,10 +30,6 @@ class MainViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         button.setTitle("Все", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        //button.backgroundColor = .blue
-        
-        //button.setTitleColor(UIColor.red, for: UIControl.State.normal)
-        
         button.addTarget(self, action: #selector(allChannelsButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -44,7 +39,6 @@ class MainViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         button.setTitle("Избранное", for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
-        //button.backgroundColor = .orange
         button.addTarget(self, action: #selector(favoriteChannelsButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -71,10 +65,8 @@ class MainViewController: UIViewController {
     private lazy var mainTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = #colorLiteral(red: 0.1363289952, green: 0.1411529481, blue: 0.1541091204, alpha: 1)
-        //tableView.tintColor = .red
         tableView.register(MainViewTableViewCell.self, forCellReuseIdentifier: MainViewTableViewCell.cellIdentifier)
-        
-        //tableView.rowHeight = 200
+        tableView.keyboardDismissMode = .interactive
         return tableView
         
     }()
@@ -245,5 +237,13 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: MainViewProtocol {
     func reloadData() {
         mainTableView.reloadData()
+    }
+}
+
+//MARK: - Keyboard Settings
+extension MainViewController: UITextViewDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
     }
 }
