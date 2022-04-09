@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 //MARK: MainViewProtocol
 protocol MainViewProtocol: AnyObject {
@@ -83,7 +84,7 @@ class MainViewController: UIViewController {
     
     //MARK: - Private Properties
     private var isFirstSegmentSelected = true
-    
+    private let urlString = "http://iptvm3u.ru/onelist.m3u"
     private var presenter: MainViewPresenterProtocol!
     
     //MARK: - Life Circle Methods
@@ -110,6 +111,7 @@ class MainViewController: UIViewController {
         let networkManager = NetworkManager()
         presenter = MainViewPresenter(view: self, networkManager: networkManager)
         presenter.fetchChannels()
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -119,11 +121,24 @@ class MainViewController: UIViewController {
     }
     
     //MARK: - Private Methods
+    private func createPlayer(videoStringURL: String) {
+        guard let url = URL(string: videoStringURL) else { return }
+        let player = AVPlayer(url: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        present(playerViewController, animated: true) {
+            player.play()
+        }
+    }
+    
+    
+    
     @objc private func allChannelsButtonTapped() {
         allChannelsButton.setTitleColor(UIColor.white, for: .normal)
         favoriteChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
         mainSegmentedControl.selectedSegmentIndex = 0
         mainTableView.reloadData()
+
     }
     
     @objc private func favoriteChannelsButtonTapped() {
@@ -209,6 +224,11 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainViewTableViewCell.cellIdentifier, for: indexPath) as? MainViewTableViewCell else { return UITableViewCell() }
+        
+       
+        
+        
+        
         cell.backgroundColor = #colorLiteral(red: 0.2039211392, green: 0.2039219141, blue: 0.2210820913, alpha: 1)
         cell.layer.borderColor = #colorLiteral(red: 0.1363289952, green: 0.1411529481, blue: 0.1541091204, alpha: 1)
         cell.layer.borderWidth = 4
@@ -230,6 +250,8 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        //createPlayer(videoStringURL: presenter.channels?.channels?[indexPath.row].url ?? urlString)
+        createPlayer(videoStringURL: urlString)
     }
 }
 
