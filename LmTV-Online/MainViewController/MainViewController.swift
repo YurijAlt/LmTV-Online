@@ -72,7 +72,7 @@ class MainViewController: UIViewController {
         
     }()
     
-    private lazy var searchBar: UISearchBar = {
+    private lazy var channelSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Напишите название телеканала"
         searchBar.backgroundColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
@@ -97,7 +97,7 @@ class MainViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.1363289952, green: 0.1411529481, blue: 0.1541091204, alpha: 1)
         
         view.addSubview(searchView)
-        searchView.addSubview(searchBar)
+        searchView.addSubview(channelSearchBar)
         
         view.addSubview(buttonView)
         buttonView.addSubview(allChannelsButton)
@@ -114,6 +114,8 @@ class MainViewController: UIViewController {
         
         let networkManager = NetworkManager()
         presenter = MainViewPresenter(view: self, networkManager: networkManager)
+        
+        channelSearchBar.delegate = self
     }
     
     override func viewWillLayoutSubviews() {
@@ -157,12 +159,12 @@ class MainViewController: UIViewController {
             searchView.rightAnchor.constraint(equalTo: view.rightAnchor),
             searchView.heightAnchor.constraint(equalToConstant: 92)
         ])
-        //SearchBar
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        //ChannelSearchBar
+        channelSearchBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchBar.leftAnchor.constraint(equalTo: searchView.leftAnchor, constant: 24),
-            searchBar.rightAnchor.constraint(equalTo: searchView.rightAnchor, constant: -24),
-            searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -6)
+            channelSearchBar.leftAnchor.constraint(equalTo: searchView.leftAnchor, constant: 24),
+            channelSearchBar.rightAnchor.constraint(equalTo: searchView.rightAnchor, constant: -24),
+            channelSearchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -6)
         ])
         //ButtonView
         buttonView.translatesAutoresizingMaskIntoConstraints = false
@@ -279,4 +281,14 @@ extension MainViewController: UITextViewDelegate {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
+}
+
+
+//MARK: - UISearchBarDelegate
+extension MainViewController: UISearchBarDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        
+    }
+    
 }

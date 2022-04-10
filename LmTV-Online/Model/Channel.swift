@@ -8,7 +8,6 @@
 
 struct Channel: Decodable {
     let channels: [ChannelData]?
-    
 }
 
 struct ChannelData: Decodable {
