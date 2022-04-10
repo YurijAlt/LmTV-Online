@@ -143,11 +143,7 @@ class MainViewController: UIViewController {
         mainSegmentedControl.selectedSegmentIndex = 1
         mainTableView.reloadData()
     }
-    
 
-    
-    
-    
     private func setupConstraints() {
         //SearchView
         searchView.translatesAutoresizingMaskIntoConstraints = false
@@ -219,30 +215,24 @@ class MainViewController: UIViewController {
 //MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.channels?.channels?.count ?? 0
+        switch isFirstSegmentSelected {
+        case true:
+            return presenter.channels?.channels?.count ?? 0
+        case false:
+            return presenter.channels?.channels?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        var isFavorite: Bool = false
+        var isFavoriteStatus: Bool = false
         let networkObject = presenter.channels?.channels?[indexPath.row].name
         let dataObject = StorageManager.shared.realm.objects(FavoriteChannel.self).filter("name = %@", networkObject ?? "")
         if dataObject.isEmpty {
-            isFavorite = false
+            isFavoriteStatus = false
         } else {
-            isFavorite = true
-            
+            isFavoriteStatus = true
         }
-        
-            print("НАЙДЕНО\(isFavorite)")
-    
-        
-        
-        
-        
-        
-        
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainViewTableViewCell.cellIdentifier, for: indexPath) as? MainViewTableViewCell else { return UITableViewCell() }
         
         cell.backgroundColor = #colorLiteral(red: 0.2039211392, green: 0.2039219141, blue: 0.2210820913, alpha: 1)
@@ -259,7 +249,7 @@ extension MainViewController: UITableViewDataSource {
             with: presenter.channels?.channels?[indexPath.row].name ?? "",
             channelTitle: presenter.channels?.channels?[indexPath.row].current?.title ?? "",
             image: presenter.channels?.channels?[indexPath.row].image ?? "",
-            isStarButtonActive: isFavorite
+            isStarButtonActive: isFavoriteStatus
         )
         return cell
     }
