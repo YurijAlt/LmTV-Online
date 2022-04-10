@@ -78,6 +78,10 @@ class MainViewController: UIViewController {
         searchBar.backgroundColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
         searchBar.barTintColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
         searchBar.searchBarStyle = UISearchBar.Style.default
+        let imageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        imageView.tintColor = #colorLiteral(red: 0.5010578632, green: 0.5058031082, blue: 0.523140192, alpha: 1)
+        searchBar.searchTextField.textColor = .white
+        searchBar.searchTextField.leftView = imageView
         searchBar.isTranslucent = false
         return searchBar
     }()
