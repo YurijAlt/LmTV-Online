@@ -53,6 +53,8 @@ class MainViewTableViewCell: UITableViewCell {
         return activityIndicator
     }()
     
+    private var imageURL = ""
+    
     //MARK: - Life Circle Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,7 +70,7 @@ class MainViewTableViewCell: UITableViewCell {
     func configure(with channelName: String, channelTitle: String, image: String, isStarButtonActive: Bool) {
         channelNameLabel.text = channelName
         broadcastNameLabel.text = channelTitle
-        
+        imageURL = image
         ImageManager.shared.fetchImage(from: image) { [weak self] data in
             guard let self = self else { return }
             self.channelLogoImageView.image = UIImage(data: data)
@@ -95,6 +97,8 @@ class MainViewTableViewCell: UITableViewCell {
     private func saveChannel() {
         let favoriteChannel = FavoriteChannel()
         favoriteChannel.name = channelNameLabel.text ?? "No Channel Name"
+        favoriteChannel.title = broadcastNameLabel.text ?? "No Broadcast Name"
+        favoriteChannel.image = imageURL
         StorageManager.shared.save(favoriteChannel: favoriteChannel)
         print("В базу данных сохранено значение \(favoriteChannel.name)")
     }

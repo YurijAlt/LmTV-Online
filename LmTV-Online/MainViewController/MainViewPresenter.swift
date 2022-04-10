@@ -13,14 +13,14 @@ protocol MainViewPresenterProtocol {
     func fetchChannels()
     func fetchImage(from url: String)
     var imageData: Data? { get set }
-    var channels: Channel? { get set }
+    var channels: [ChannelData]? { get set }
 }
 
 class MainViewPresenter: MainViewPresenterProtocol {
     unowned let view: MainViewProtocol
     let networkManager: NetworkManagerProtocol!
     var imageData: Data?
-    var channels: Channel?
+    var channels: [ChannelData]?
 
     required init(view: MainViewProtocol, networkManager: NetworkManagerProtocol) {
         self.view = view
@@ -31,7 +31,7 @@ class MainViewPresenter: MainViewPresenterProtocol {
     func fetchChannels() {
         networkManager.fetchListOfChannels { [weak self] channels in
             guard let self = self else { return }
-            self.channels = channels
+            self.channels = channels?.channels
             self.view.reloadData()
         }
     }

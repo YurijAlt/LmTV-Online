@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
     private var isFirstSegmentSelected = true
     private let urlString = "http://iptvm3u.ru/onelist.m3u"
     private var presenter: MainViewPresenterProtocol!
-    
+    private var favoriteChannels: [ChannelData] = []
     //MARK: - Life Circle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +114,6 @@ class MainViewController: UIViewController {
         
         let networkManager = NetworkManager()
         presenter = MainViewPresenter(view: self, networkManager: networkManager)
-        
         channelSearchBar.delegate = self
     }
     
@@ -139,14 +138,16 @@ class MainViewController: UIViewController {
         allChannelsButton.setTitleColor(UIColor.white, for: .normal)
         favoriteChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
         mainSegmentedControl.selectedSegmentIndex = 0
+        isFirstSegmentSelected = true
         mainTableView.reloadData()
-        
+        favoriteChannels.removeAll()
     }
     
     @objc private func favoriteChannelsButtonTapped() {
         allChannelsButton.setTitleColor(#colorLiteral(red: 0.6000263691, green: 0.5998786092, blue: 0.6086004972, alpha: 1), for: .normal)
         favoriteChannelsButton.setTitleColor(UIColor.white, for: .normal)
         mainSegmentedControl.selectedSegmentIndex = 1
+        isFirstSegmentSelected = false
         mainTableView.reloadData()
     }
 
@@ -220,17 +221,19 @@ class MainViewController: UIViewController {
 //MARK: - UITableViewDataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         switch isFirstSegmentSelected {
         case true:
-            return presenter.channels?.channels?.count ?? 0
+            return presenter.channels?.count ?? 0
         case false:
-            return presenter.channels?.channels?.count ?? 0
+            return StorageManager.shared.realm.objects(FavoriteChannel.self).count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         var isFavoriteStatus: Bool = false
-        let networkObject = presenter.channels?.channels?[indexPath.row].name
+        let networkObject = presenter.channels?[indexPath.row].name
         let dataObject = StorageManager.shared.realm.objects(FavoriteChannel.self).filter("name = %@", networkObject ?? "")
         if dataObject.isEmpty {
             isFavoriteStatus = false
@@ -250,12 +253,23 @@ extension MainViewController: UITableViewDataSource {
         backgroundView.layer.masksToBounds = true
         cell.selectedBackgroundView = backgroundView
         
-        cell.configure(
-            with: presenter.channels?.channels?[indexPath.row].name ?? "",
-            channelTitle: presenter.channels?.channels?[indexPath.row].current?.title ?? "",
-            image: presenter.channels?.channels?[indexPath.row].image ?? "",
-            isStarButtonActive: isFavoriteStatus
-        )
+        
+        switch isFirstSegmentSelected {
+        case true:
+            cell.configure(
+                with: presenter.channels?[indexPath.row].name ?? "",
+                channelTitle: presenter.channels?[indexPath.row].current?.title ?? "",
+                image: presenter.channels?[indexPath.row].image ?? "",
+                isStarButtonActive: isFavoriteStatus
+            )
+        case false:
+            cell.configure(
+                with: dataObject[indexPath.row].name,
+                channelTitle: dataObject[indexPath.row].title,
+                image: dataObject[indexPath.row].image,
+                isStarButtonActive: isFavoriteStatus
+            )
+        }
         return cell
     }
 }
@@ -286,8 +300,10 @@ extension MainViewController: UITextViewDelegate {
 
 //MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        
         
     }
     
