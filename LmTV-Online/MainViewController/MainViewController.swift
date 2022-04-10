@@ -263,11 +263,12 @@ extension MainViewController: UITableViewDataSource {
                 isStarButtonActive: isFavoriteStatus
             )
         case false:
+            let dataObjects = StorageManager.shared.realm.objects(FavoriteChannel.self)
             cell.configure(
-                with: dataObject[indexPath.row].name,
-                channelTitle: dataObject[indexPath.row].title,
-                image: dataObject[indexPath.row].image,
-                isStarButtonActive: isFavoriteStatus
+                with: dataObjects[indexPath.row].name,
+                channelTitle: dataObjects[indexPath.row].title,
+                image: dataObjects[indexPath.row].image,
+                isStarButtonActive: true
             )
         }
         return cell
