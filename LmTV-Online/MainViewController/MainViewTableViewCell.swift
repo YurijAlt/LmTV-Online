@@ -11,9 +11,6 @@ class MainViewTableViewCell: UITableViewCell {
     
     static let cellIdentifier = "MainViewTableViewCell"
     
-    //MARK: - Private Properties
-    private var starButtonIsActive = false
-    
     //MARK: - Views
     private lazy var channelLogoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -53,6 +50,8 @@ class MainViewTableViewCell: UITableViewCell {
         return activityIndicator
     }()
     
+    //MARK: - Private Properties
+    private var starButtonIsActive = false
     private var imageURL = ""
     
     //MARK: - Life Circle Methods
@@ -100,14 +99,14 @@ class MainViewTableViewCell: UITableViewCell {
         favoriteChannel.title = broadcastNameLabel.text ?? "No Broadcast Name"
         favoriteChannel.image = imageURL
         StorageManager.shared.save(favoriteChannel: favoriteChannel)
-        print("В базу данных сохранено значение \(favoriteChannel.name)")
+        print("БАЗА: ВНЕСЕНО ЗНАЧЕНИЕ \(favoriteChannel.name)")
     }
     
     private func deleteChannel() {
         let favoriteChannel = FavoriteChannel()
         favoriteChannel.name = channelNameLabel.text ?? "No Channel Name"
         StorageManager.shared.delete(favoriteChannel: favoriteChannel)
-        print("Из базы удалено значение \(favoriteChannel.name)")
+        print("БАЗА: УДАЛЕНО ЗНАЧЕНИЕ \(favoriteChannel.name)")
     }
     
     private func getStarButtonTintColor() -> UIColor {

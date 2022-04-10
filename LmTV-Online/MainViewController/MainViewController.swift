@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
     private var isFirstSegmentSelected = true
     private let urlString = "http://iptvm3u.ru/onelist.m3u"
     private var presenter: MainViewPresenterProtocol!
-    private var favoriteChannels: [ChannelData] = []
+    
     //MARK: - Life Circle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +140,6 @@ class MainViewController: UIViewController {
         mainSegmentedControl.selectedSegmentIndex = 0
         isFirstSegmentSelected = true
         mainTableView.reloadData()
-        favoriteChannels.removeAll()
     }
     
     @objc private func favoriteChannelsButtonTapped() {
@@ -263,11 +262,11 @@ extension MainViewController: UITableViewDataSource {
                 isStarButtonActive: isFavoriteStatus
             )
         case false:
-            let dataObjects = StorageManager.shared.realm.objects(FavoriteChannel.self)
+            let favoriteChannels = StorageManager.shared.realm.objects(FavoriteChannel.self)
             cell.configure(
-                with: dataObjects[indexPath.row].name,
-                channelTitle: dataObjects[indexPath.row].title,
-                image: dataObjects[indexPath.row].image,
+                with: favoriteChannels[indexPath.row].name,
+                channelTitle: favoriteChannels[indexPath.row].title,
+                image: favoriteChannels[indexPath.row].image,
                 isStarButtonActive: true
             )
         }
@@ -301,11 +300,7 @@ extension MainViewController: UITextViewDelegate {
 
 //MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
-
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        
-        
+   
     }
-    
 }
