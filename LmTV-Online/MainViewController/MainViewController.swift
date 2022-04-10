@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     //MARK: Views
     private lazy var searchView: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
+        view.backgroundColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
         return view
     }()
     private lazy var buttonView: UIView = {
@@ -77,7 +77,7 @@ class MainViewController: UIViewController {
         searchBar.placeholder = "Напишите название телеканала"
         searchBar.backgroundColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
         searchBar.barTintColor = #colorLiteral(red: 0.1922112107, green: 0.1919049621, blue: 0.2093025744, alpha: 1)
-        searchBar.searchBarStyle = UISearchBar.Style.default
+        searchBar.searchBarStyle = .minimal
         let imageView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         imageView.tintColor = #colorLiteral(red: 0.5010578632, green: 0.5058031082, blue: 0.523140192, alpha: 1)
         searchBar.searchTextField.textColor = .white
@@ -152,57 +152,56 @@ class MainViewController: UIViewController {
         //SearchView
         searchView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            searchView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-            searchView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
-            searchView.heightAnchor.constraint(equalToConstant: 144)
+            searchView.topAnchor.constraint(equalTo: view.topAnchor),
+            searchView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            searchView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            searchView.heightAnchor.constraint(equalToConstant: 92)
         ])
         //SearchBar
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: searchView.topAnchor, constant: 0),
-            searchBar.leftAnchor.constraint(equalTo: searchView.leftAnchor, constant: 0),
-            searchBar.rightAnchor.constraint(equalTo: searchView.rightAnchor, constant: 0),
-            searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 0)
+            searchBar.leftAnchor.constraint(equalTo: searchView.leftAnchor, constant: 24),
+            searchBar.rightAnchor.constraint(equalTo: searchView.rightAnchor, constant: -24),
+            searchBar.bottomAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -6)
         ])
         //ButtonView
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            buttonView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: -21),
-            buttonView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-            buttonView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            buttonView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            buttonView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            buttonView.rightAnchor.constraint(equalTo: view.rightAnchor),
             buttonView.heightAnchor.constraint(equalToConstant: 56)
         ])
         ////
         //AllChannelsButton
         allChannelsButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            allChannelsButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 0),
+            allChannelsButton.topAnchor.constraint(equalTo: buttonView.topAnchor),
             allChannelsButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 32),
-            allChannelsButton.widthAnchor.constraint(equalToConstant: 58)
+            allChannelsButton.widthAnchor.constraint(equalToConstant: 56)
         ])
         //FaviriteChannelsButton
         favoriteChannelsButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            favoriteChannelsButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 0),
-            favoriteChannelsButton.leftAnchor.constraint(equalTo: allChannelsButton.rightAnchor, constant: 0),
+            favoriteChannelsButton.topAnchor.constraint(equalTo: buttonView.topAnchor),
+            favoriteChannelsButton.leftAnchor.constraint(equalTo: allChannelsButton.rightAnchor),
             favoriteChannelsButton.widthAnchor.constraint(equalToConstant: 116)
         ])
         
         //MainSegmentedControl
         mainSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainSegmentedControl.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -6),
+            mainSegmentedControl.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: -8),
             mainSegmentedControl.heightAnchor.constraint(equalToConstant: 2),
-            mainSegmentedControl.leftAnchor.constraint(equalTo: allChannelsButton.leftAnchor, constant: 0),
-            mainSegmentedControl.rightAnchor.constraint(equalTo: favoriteChannelsButton.rightAnchor, constant: 0),
+            mainSegmentedControl.leftAnchor.constraint(equalTo: allChannelsButton.leftAnchor),
+            mainSegmentedControl.rightAnchor.constraint(equalTo: favoriteChannelsButton.rightAnchor),
         ])
         //PixelView
         pixelLineView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pixelLineView.topAnchor.constraint(equalTo: buttonView.bottomAnchor, constant: 0),
-            pixelLineView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-            pixelLineView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            pixelLineView.topAnchor.constraint(equalTo: buttonView.bottomAnchor),
+            pixelLineView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            pixelLineView.rightAnchor.constraint(equalTo: view.rightAnchor),
             pixelLineView.heightAnchor.constraint(equalToConstant: 1)
         ])
         //MainTableView
@@ -211,7 +210,7 @@ class MainViewController: UIViewController {
             mainTableView.topAnchor.constraint(equalTo: pixelLineView.bottomAnchor, constant: 20),
             mainTableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 4),
             mainTableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -4),
-            mainTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            mainTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
