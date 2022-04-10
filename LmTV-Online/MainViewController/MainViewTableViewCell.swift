@@ -58,7 +58,6 @@ class MainViewTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupSubviews(subviews: channelLogoImageView, channelNameLabel, broadcastNameLabel, starButton, activityIndicator)
         setupConstraints()
-        //getStarButtonTintColor()
     }
     
     required init?(coder: NSCoder) {
@@ -88,7 +87,7 @@ class MainViewTableViewCell: UITableViewCell {
     }
     
     @objc private func starButtonTapped() {
-        starButtonIsActive ? deleteChannel(): saveChannel() 
+        starButtonIsActive ? deleteChannel(): saveChannel()
         starButtonIsActive.toggle()
         starButton.tintColor = getStarButtonTintColor()
     }
@@ -101,12 +100,8 @@ class MainViewTableViewCell: UITableViewCell {
     }
     
     private func deleteChannel() {
-        
         let favoriteChannel = FavoriteChannel()
-        
         favoriteChannel.name = channelNameLabel.text ?? "No Channel Name"
-
-        
         StorageManager.shared.delete(favoriteChannel: favoriteChannel)
         print("Из базы удалено значение \(favoriteChannel.name)")
     }
@@ -114,7 +109,6 @@ class MainViewTableViewCell: UITableViewCell {
     private func getStarButtonTintColor() -> UIColor {
         starButtonIsActive ? #colorLiteral(red: 0, green: 0.4610033035, blue: 1, alpha: 1) : #colorLiteral(red: 0.4501188397, green: 0.4546305537, blue: 0.48499614, alpha: 1)
     }
-    
     
     private func setupConstraints() {
         //ChannelLogoImageView
