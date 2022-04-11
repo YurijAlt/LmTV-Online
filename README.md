@@ -20,17 +20,4 @@ UIKit, UITableViewController, UISearchBar, AVKit, Realm, MVP, Singleton, Code La
 - Использованы UITableView с кастомными ячейками UITableViewCell.
 - Реализована возможность просмотра только одного плейлиста (при нажатии на любой канал из списка в таблице), т.к. API не выдает ссылки URL на плейлисты в JSON (на авторских правах).
 - Добавлена функция сохранения понравившегося канала нажатием на звездочку в ячейке, сохранение в память с помощью Realm.
-- Дизайн из макета, предоставленного в Figma, добавлены AppIcon.
-
-##### Short description:
-##### An application for storing and removing tags from clothes, which has the ability to add descriptions to clothes, select clothes care icons, as well as photos from the iPhone camera. In addition, the application contains recommendations for the care of clothes.
-
-- The project is entirely written in UIKit.
-- The project is localized only in English.
-- Used architecture MVC.
-- Used UITabBarController, UINavigationController.
-- Used UITableView, UICollectionView with custom cells UICollectionViewCell and UITableViewCell.
-- Implemented the ability to upload custom photos from the iPhone camera.
-- Added filter function by date / alphabet among CoreData records.
-- Displays a description of a garment care symbol in the UIAlertController that disappears by timer.
-- Designed, AppIcon, LaunchScreen added.
+- Дизайн из макета, предоставленного в Figma, добавлены 
